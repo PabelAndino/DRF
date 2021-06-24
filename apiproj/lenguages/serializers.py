@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Language, Paradigm, Programmer
+from .models import Language, Paradigm, Programmer, Sale, SaleDetail
 
 
 class LenguageSerializer(serializers.ModelSerializer):
@@ -28,6 +28,20 @@ class ProgrammerSerisalizer(serializers.ModelSerializer):
             Language.objects.create(programmer=programmer, **language_data)
             print(language_data)
         return programmer
+
+
+class SaleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sale
+        fields = ('id', 'name')
+
+
+class SaleDetailSerializer(serializers.ModelSerializer):
+    sale = SaleSerializer(many=True)
+
+    class Meta:
+        model = SaleDetail
+        fields = ('id', 'name', 'quantity', 'sale')
 
     # {
     #
